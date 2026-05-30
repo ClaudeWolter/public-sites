@@ -1,0 +1,187 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { translations } from '../../i18n/translations';
+
+const locale = 'de';
+const tr = translations[locale];
+const ct = tr.contact;
+---
+
+<Layout locale={locale} title={`${ct.pageTitle} — ${tr.siteTitle}`} currentPage="contact">
+
+  <!-- PAGE HEADER -->
+  <section class="bg-primary-dark text-white py-14">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-3xl md:text-4xl font-bold mb-4">{ct.pageTitle}</h1>
+      <p class="text-blue-200 text-lg max-w-2xl mx-auto">{ct.pageSubtitle}</p>
+    </div>
+  </section>
+
+  <!-- FORM SECTION -->
+  <section class="py-12">
+    <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <!-- Success message (hidden by default) -->
+      <div id="success-msg" class="hidden bg-green-50 border border-green-200 rounded-xl p-8 text-center mb-8">
+        <div class="flex items-center justify-center w-16 h-16 rounded-full bg-green-100 text-green-600 mx-auto mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
+        </div>
+        <h2 class="text-xl font-bold text-green-800 mb-2">{ct.successTitle}</h2>
+        <p class="text-green-700">{ct.successBody}</p>
+      </div>
+
+      <!-- Error message (hidden by default) -->
+      <div id="error-msg" class="hidden bg-red-50 border border-red-200 rounded-xl p-6 mb-8">
+        <div class="flex items-start gap-3">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <circle cx="12" cy="12" r="10" />
+            <line x1="12" y1="8" x2="12" y2="12" />
+            <line x1="12" y1="16" x2="12.01" y2="16" />
+          </svg>
+          <p class="text-red-700 text-sm">{ct.errorBody}</p>
+        </div>
+      </div>
+
+      <!-- FORM -->
+      <form id="enquiry-form"
+            data-worker-url="https://enquiry.flearmory.lu/submit"
+            class="bg-white rounded-xl shadow-sm border border-gray-100 p-8 space-y-6">
+
+        <!-- Honeypot -->
+        <div class="hidden" aria-hidden="true">
+          <label for="website">Leave this empty</label>
+          <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
+        </div>
+
+        <div>
+          <label for="name" class="block text-sm font-semibold text-gray-700 mb-1.5">
+            {ct.fields.name} <span class="text-accent" aria-label={ct.required}>*</span>
+          </label>
+          <input type="text" id="name" name="name" required
+                 placeholder={ct.placeholders.name}
+                 class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-colors" />
+        </div>
+
+        <div>
+          <label for="club" class="block text-sm font-semibold text-gray-700 mb-1.5">
+            {ct.fields.club} <span class="text-accent" aria-label={ct.required}>*</span>
+          </label>
+          <input type="text" id="club" name="club" required
+                 placeholder={ct.placeholders.club}
+                 class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-colors" />
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label for="dateFrom" class="block text-sm font-semibold text-gray-700 mb-1.5">
+              {ct.fields.dateFrom} <span class="text-accent" aria-label={ct.required}>*</span>
+            </label>
+            <input type="date" id="dateFrom" name="dateFrom" required
+                   class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-colors" />
+          </div>
+          <div>
+            <label for="dateTo" class="block text-sm font-semibold text-gray-700 mb-1.5">
+              {ct.fields.dateTo} <span class="text-accent" aria-label={ct.required}>*</span>
+            </label>
+            <input type="date" id="dateTo" name="dateTo" required
+                   class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-colors" />
+          </div>
+        </div>
+
+        <div>
+          <label for="equipment" class="block text-sm font-semibold text-gray-700 mb-1.5">
+            {ct.fields.equipment} <span class="text-accent" aria-label={ct.required}>*</span>
+          </label>
+          <textarea id="equipment" name="equipment" required rows="4"
+                    placeholder={ct.placeholders.equipment}
+                    class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-colors resize-y"></textarea>
+        </div>
+
+        <div>
+          <label for="message" class="block text-sm font-semibold text-gray-700 mb-1.5">
+            {ct.fields.message}
+          </label>
+          <textarea id="message" name="message" rows="3"
+                    placeholder={ct.placeholders.message}
+                    class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-colors resize-y"></textarea>
+        </div>
+
+        <button type="submit" id="submit-btn"
+                class="w-full bg-primary hover:bg-primary-light text-white font-semibold py-3 px-6 rounded-lg transition-colors shadow-sm flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed">
+          <span id="submit-text">{ct.submit}</span>
+          <svg id="submit-spinner" class="hidden h-5 w-5 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" aria-hidden="true">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+          </svg>
+        </button>
+      </form>
+    </div>
+  </section>
+
+</Layout>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const cat = params.get('cat');
+  if (cat) {
+    const equipmentField = document.getElementById('equipment') as HTMLTextAreaElement | null;
+    if (equipmentField && !equipmentField.value) {
+      equipmentField.value = cat;
+    }
+  }
+
+  const form = document.getElementById('enquiry-form') as HTMLFormElement | null;
+  const successMsg = document.getElementById('success-msg');
+  const errorMsg = document.getElementById('error-msg');
+  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement | null;
+  const submitText = document.getElementById('submit-text');
+  const submitSpinner = document.getElementById('submit-spinner');
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!form || !submitBtn) return;
+
+    submitBtn.disabled = true;
+    submitText?.classList.add('hidden');
+    submitSpinner?.classList.remove('hidden');
+    errorMsg?.classList.add('hidden');
+
+    const workerUrl = form.dataset.workerUrl ?? 'https://enquiry.flearmory.lu/submit';
+
+    const data = {
+      name: (form.elements.namedItem('name') as HTMLInputElement).value.trim(),
+      club: (form.elements.namedItem('club') as HTMLInputElement).value.trim(),
+      dateFrom: (form.elements.namedItem('dateFrom') as HTMLInputElement).value,
+      dateTo: (form.elements.namedItem('dateTo') as HTMLInputElement).value,
+      equipment: (form.elements.namedItem('equipment') as HTMLTextAreaElement).value.trim(),
+      message: (form.elements.namedItem('message') as HTMLTextAreaElement).value.trim(),
+      website: (form.elements.namedItem('website') as HTMLInputElement).value,
+    };
+
+    try {
+      const resp = await fetch(workerUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      const json = await resp.json();
+
+      if (json.ok) {
+        form.classList.add('hidden');
+        successMsg?.classList.remove('hidden');
+      } else {
+        errorMsg?.classList.remove('hidden');
+        submitBtn.disabled = false;
+        submitText?.classList.remove('hidden');
+        submitSpinner?.classList.add('hidden');
+      }
+    } catch {
+      errorMsg?.classList.remove('hidden');
+      submitBtn.disabled = false;
+      submitText?.classList.remove('hidden');
+      submitSpinner?.classList.add('hidden');
+    }
+  });
+</script>
